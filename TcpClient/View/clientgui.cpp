@@ -10,25 +10,23 @@ ClientGUI::ClientGUI(Client *client, QWidget *parent) :
 
     m_client = client;
 
-    connect(ui->connectButton, SIGNAL(clicked(bool)), SLOT(slotConnectButton()));
-    connect(ui->disconnectButton, SIGNAL(clicked(bool)), SLOT(slotDisconnectButton()));
+    connect(ui->connectButton, SIGNAL(clicked(bool)), SLOT(connectedButtonSlot()));
+    connect(ui->disconnectButton, SIGNAL(clicked(bool)), SLOT(disconnectButtonSlot()));
 }
 
-void ClientGUI::slotConnectButton()
+void ClientGUI::connectedButtonSlot()
 {
     ui->statusLabel->setText("Ожидание подключения...");
     m_client->connectToServer(ui->ipEdit->text(), ui->portEdit->text().toInt());
-    ui->ipEdit->clear();
-    ui->portEdit->clear();
 }
 
-void ClientGUI::slotDisconnectButton()
+void ClientGUI::disconnectButtonSlot()
 {
     ui->statusLabel->setText("Ожидание отключения...");
     m_client->disconnectFromServer();
 }
 
-void ClientGUI::slotStatus(QString str)
+void ClientGUI::statusSlot(QString str)
 {
     ui->statusLabel->setText(str);
 }

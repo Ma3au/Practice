@@ -29,14 +29,14 @@ private:
     QByteArray m_msg;
 
 private slots:
-    void slotConnected();
-    void slotError();
-    void slotDisconnected();
-    void slotReadyRead();
+    void connectedSlot();
+    void errorSlot();
+    void disconnectedSlot();
+    void readyReadSlot();
 
 signals:
-    void signalStatus(QString str);
-    void signalMessage(const QByteArray &msg);
+    void statusSignal(QString str);
+    void messageSignal(const QByteArray &msg);
 };
 
 #endif // CLIENT_H

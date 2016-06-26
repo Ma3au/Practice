@@ -5,17 +5,17 @@ Client::Client(QObject *parent) : QObject(parent)
     m_pTcpSocket = new QTcpSocket();
     connection = false;
 
-    connect(m_pTcpSocket, SIGNAL(connected()), SLOT(slotConnected()));
-    connect(m_pTcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(slotError()));
-    connect(m_pTcpSocket, SIGNAL(disconnected()), SLOT(slotDisconnected()));
-    connect(m_pTcpSocket, SIGNAL(readyRead()), SLOT(slotReadyRead()));
+    connect(m_pTcpSocket, SIGNAL(connected()), SLOT(connectedSlot()));
+    connect(m_pTcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(errorSlot()));
+    connect(m_pTcpSocket, SIGNAL(disconnected()), SLOT(disconnectedSlot()));
+    connect(m_pTcpSocket, SIGNAL(readyRead()), SLOT(readyReadSlot()));
 }
 
 bool Client::connectToServer(QString ip, int port)
 {
     if(connection)
     {
-        emit signalStatus("Вы подключены к серверу:\n" + m_ip + ":" + QString::number(m_port));
+        emit statusSignal("Вы подключены к серверу:\n" + m_ip + ":" + QString::number(m_port));
         return false;
     }
 
@@ -31,37 +31,37 @@ bool Client::disconnectFromServer()
     if(connection)
     {
         m_pTcpSocket->disconnectFromHost();
-        emit signalStatus("Вы не подключены к серверу");
+        emit statusSignal("Вы не подключены к серверу");
         return true;
     }
 
-    emit signalStatus("Вы не подключены к серверу");
+    emit statusSignal("Вы не подключены к серверу");
     return false;
 }
 
-void Client::slotConnected()
+void Client::connectedSlot()
 {
     connection = true;
-    emit signalStatus("Вы подключены к серверу:\n" + m_ip + ":" + QString::number(m_port));
+    emit statusSignal("Вы подключены к серверу:\n" + m_ip + ":" + QString::number(m_port));
 }
 
-void Client::slotError()
+void Client::errorSlot()
 {
-    emit signalStatus("Вы не подключены к серверу");
+    emit statusSignal("Вы не подключены к серверу");
 }
 
-void Client::slotDisconnected()
+void Client::disconnectedSlot()
 {
     connection = false;
-    emit signalStatus("Вы не подключены к серверу");
+    emit statusSignal("Вы не подключены к серверу");
 }
 
-void Client::slotReadyRead()
+void Client::readyReadSlot()
 {
     if(m_pTcpSocket->bytesAvailable())
         m_msg = m_pTcpSocket->readAll();
 
-    emit signalMessage(m_msg);
+    emit messageSignal(m_msg);
 }
 
 QString Client::getIp() const

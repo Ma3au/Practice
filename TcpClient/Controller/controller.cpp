@@ -5,7 +5,7 @@ Controller::Controller(QObject *parent) : QObject(parent)
     client = new Client();
     nmea = new Nmea();
 
-    connect(client, SIGNAL(signalMessage(QByteArray)), nmea, SLOT(slotMessage(QByteArray)));
+    connect(client, SIGNAL(messageSignal(QByteArray)), nmea, SLOT(messageSlot(QByteArray)));
 }
 
 Controller::~Controller()

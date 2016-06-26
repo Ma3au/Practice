@@ -5,7 +5,7 @@ MasterView::MasterView(Controller *controller, QObject *parent) : QObject(parent
     m_controller = controller;
     m_clientGUI = new ClientGUI(controller->client);
 
-    connect(controller->client, SIGNAL(signalStatus(QString)), m_clientGUI, SLOT(slotStatus(QString)));
+    connect(controller->client, SIGNAL(statusSignal(QString)), m_clientGUI, SLOT(statusSlot(QString)));
 
     m_clientGUI->show();
 }
