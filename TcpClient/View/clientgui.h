@@ -17,9 +17,9 @@ public:
     ~ClientGUI();
 
 private slots:
-    void slotStatus(QString str);
-    void slotConnectButton();
-    void slotDisconnectButton();
+    void statusSlot(QString str);
+    void connectedButtonSlot();
+    void disconnectButtonSlot();
 
 private:
     Ui::ClientGUI *ui;

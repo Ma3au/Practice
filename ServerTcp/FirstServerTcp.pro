@@ -13,12 +13,21 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    server.cpp
+    Controller/controller.cpp \
+    Controller/server.cpp \
+    View/masterview.cpp \
+    View/server_gui.cpp
 
 QT      += widgets network
 
-HEADERS  += mainwindow.h \
-    server.h
+HEADERS  += \
+    Controller/controller.h \
+    Controller/server.h \
+    View/masterview.h \
+    View/server_gui.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    View/server_gui.ui
+
+RESOURCES += \
+    resourses.qrc
