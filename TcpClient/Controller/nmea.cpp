@@ -6,16 +6,15 @@ Nmea::Nmea(QObject *parent) : QObject(parent)
 {
     m_dataFile = new QFile("response.txt");
     m_dataFile->open(QIODevice::WriteOnly);
-
 }
 
 
 
 //Слот на сигнал от Client TODO: запись в файл
-void Nmea::messageSlot(const QByteArray &str)
+void Nmea::messageSlot(const QByteArray &msg)
 {
     QByteArrayList listMsg;
-    listMsg = str.split('\n');
+    listMsg = msg.split('\n');
 
     foreach (QByteArray msg, listMsg) {
         if(checkMsg(msg) != true){
@@ -23,18 +22,17 @@ void Nmea::messageSlot(const QByteArray &str)
         }
 
     }
-    qDebug() << "Данные от сервера были приняты";
-//    for(int i = 5; i < list.length(); i += 5)
-//        list.removeAt(i);
 
+    qDebug() << "Данные от сервера были приняты";
     processMessage();
 }
 
 bool Nmea::checkMsg(const QByteArray msg)
 {
     int length = msg.length();
-    if (length < 2)
+    if (length < 2){
         return false;
+    }
     if(msg[0] != '$' || msg[length - 1] != '\r'){
         return false;
     }
@@ -44,7 +42,6 @@ bool Nmea::checkMsg(const QByteArray msg)
     }
 
     return true;
-
 }
 
 //Вычисление контрольной суммы
@@ -56,8 +53,9 @@ bool Nmea::checksum(const QByteArray msg)
     }
 
     int check = 0;
-    for(int i = 1; i < indexAsterisk; i++)
+    for(int i = 1; i < indexAsterisk; i++){
         check ^= msg[i];
+    }
 
     QString checksumMsg = msg;
     checksumMsg.remove(0, checksumMsg.indexOf('*') + 1);

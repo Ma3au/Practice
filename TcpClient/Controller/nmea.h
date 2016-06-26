@@ -16,7 +16,7 @@ public:
     void processMessage();
 
 private slots:
-    void messageSlot(const QByteArray &str);
+    void messageSlot(const QByteArray &msg);
 
 private:
     QFile *m_dataFile;

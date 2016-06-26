@@ -135,10 +135,6 @@ void Server::workSlot()
 
 }
 
-bool Server::isRunning()
-{
-    return m_serverIsRunning;
-}
 
 bool Server::stopServer()
 {

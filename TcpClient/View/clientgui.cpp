@@ -18,8 +18,6 @@ void ClientGUI::connectedButtonSlot()
 {
     ui->statusLabel->setText("Ожидание подключения...");
     m_client->connectToServer(ui->ipEdit->text(), ui->portEdit->text().toInt());
-    ui->ipEdit->clear();
-    ui->portEdit->clear();
 }
 
 void ClientGUI::disconnectButtonSlot()
