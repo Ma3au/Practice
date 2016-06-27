@@ -102,11 +102,8 @@ QByteArray Server::generationMsg()
 {
     qDebug() << "Generation msg..";
 
-    if(m_dataFile->atEnd()){ // Сделать переход в начало файла проще
-        m_dataFile->close();
-        delete m_dataFile;
-        m_dataFile = new QFile(":/data.txt");
-        m_dataFile->open(QIODevice::ReadOnly);
+    if(m_dataFile->atEnd()){
+        m_dataFile->seek(0);
     }
     QString strMsg("");
     for(int i = 0; i < 5; i++){
