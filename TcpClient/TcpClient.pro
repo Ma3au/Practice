@@ -17,14 +17,19 @@ SOURCES += main.cpp\
     Controller/nmea.cpp \
     View/clientgui.cpp \
     Controller/controller.cpp \
-    View/masterview.cpp
+    View/masterview.cpp \
+    Controller/mrk.cpp \
+    View/mrkgui.cpp
 
 HEADERS  += \
     Controller/client.h \
     Controller/nmea.h \
     View/clientgui.h \
     Controller/controller.h \
-    View/masterview.h
+    View/masterview.h \
+    Controller/mrk.h \
+    View/mrkgui.h
 
 FORMS    += \
-    View/clientgui.ui
+    View/clientgui.ui \
+    View/mrkgui.ui

@@ -3,6 +3,8 @@
 
 #include "client.h"
 #include "nmea.h"
+#include "mrk.h"
+
 #include <QObject>
 
 class Controller : public QObject
@@ -14,6 +16,7 @@ public:
 
     Client *client;
     Nmea *nmea;
+    Mrk *mrk;
 };
 
 #endif // CONTROLLER_H
