@@ -64,19 +64,10 @@ void Client::readyReadSlot()
     emit messageSignal(m_msg);
 }
 
-QString Client::getIp() const
-{
-    return m_ip;
-}
 
 void Client::setIp(const QString &value)
 {
     m_ip = value;
-}
-
-int Client::getPort() const
-{
-    return m_port;
 }
 
 void Client::setPort(int value)

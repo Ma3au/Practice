@@ -12,16 +12,12 @@ public:
     Nmea(QObject *parent = 0);
     ~Nmea();
 
-    bool checksum(const QByteArray str);
-    void processMessage();
+    bool checksum(const QByteArray &str);
+    void processMessage(const QByteArray &msg);
+    bool checkMsg(const QByteArray &msg);
 
 private slots:
     void messageSlot(const QByteArray &msg);
-
-private:
-    QFile *m_dataFile;
-
-    bool checkMsg(const QByteArray msg);
 };
 
 #endif // NMEA_H

@@ -15,10 +15,7 @@ public:
     bool connectToServer(QString ip, int port);
     bool disconnectFromServer();
 
-    QString getIp() const;
     void setIp(const QString &value);
-
-    int getPort() const;
     void setPort(int value);
 
 private:
