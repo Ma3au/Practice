@@ -1,8 +1,7 @@
 #ifndef MRKGUI_H
 #define MRKGUI_H
 
-#include "Controller/mrk.h"
-
+#include <Controller/mrk.h>
 #include <QWidget>
 
 namespace Ui {
@@ -17,12 +16,16 @@ public:
     explicit MrkGUI(Mrk *mrk, QWidget *parent = 0);
     ~MrkGUI();
 
+public slots:
+    void mrkDataSlot(QTime time, QDate date, Coordinate lon, Coordinate lat);
+
 signals:
-    void clickSetingButtonSignal();
+    void windowShownSignal();
+    void windowClosedSignal();
 
-private slots:
-    void clickSetingButtonSlot();
-
+protected:
+    void showEvent(QShowEvent *);
+    void closeEvent(QCloseEvent *);
 private:
     Ui::MrkGUI *ui;
     Mrk *m_mrk;

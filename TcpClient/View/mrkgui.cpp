@@ -8,15 +8,34 @@ MrkGUI::MrkGUI(Mrk *mrk, QWidget *parent) :
     ui->setupUi(this);
     m_mrk = mrk;
 
-    connect(ui->setingButton, SIGNAL(clicked()),SLOT(clickSetingButtonSlot()));
+    ui->textEdit->setReadOnly(true);
+
+}
+
+void MrkGUI::mrkDataSlot(QTime time, QDate date, Coordinate lon, Coordinate lat)
+{
+    ui->textEdit->clear();
+    ui->textEdit->append(time.toString());
+    ui->textEdit->append(date.toString());
+    ui->textEdit->append("Градусов долготы: " + QString::number(lon.deg()));
+    ui->textEdit->append("Градусов широты: " + QString::number(lat.deg()));
+}
+
+void MrkGUI::showEvent(QShowEvent *ev)
+{
+    QWidget::showEvent(ev);
+
+    emit windowShownSignal();
+}
+
+void MrkGUI::closeEvent(QCloseEvent *ev)
+{
+    QWidget::closeEvent(ev);
+
+    emit windowClosedSignal();
 }
 
 MrkGUI::~MrkGUI()
 {
     delete ui;
-}
-
-void MrkGUI::clickSetingButtonSlot()
-{
-    emit clickSetingButtonSignal();
 }

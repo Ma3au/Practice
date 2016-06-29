@@ -80,7 +80,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="statusLabel">
       <property name="text">
-       <string>Вы не подключены к серверу</string>
+       <string>Ожидание подключения...</string>
       </property>
      </widget>
     </item>

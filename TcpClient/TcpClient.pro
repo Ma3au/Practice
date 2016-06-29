@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     Controller/controller.cpp \
     View/masterview.cpp \
     Controller/mrk.cpp \
-    View/mrkgui.cpp
+    View/mrkgui.cpp \
+    coordinate.cpp
 
 HEADERS  += \
     Controller/client.h \
@@ -28,8 +29,10 @@ HEADERS  += \
     Controller/controller.h \
     View/masterview.h \
     Controller/mrk.h \
-    View/mrkgui.h
+    View/mrkgui.h \
+    coordinate.h
 
 FORMS    += \
     View/clientgui.ui \
-    View/mrkgui.ui
+    View/mrkgui.ui \
+    View/masterview.ui

@@ -1,15 +1,13 @@
 #include "nmea.h"
-#include <QDataStream>
-#include <QtNetwork>
 
 Nmea::Nmea(QObject *parent) : QObject(parent)
 {
 
 }
 
+//Приём от клиента сообщения
 void Nmea::messageSlot(const QByteArray &msg)
 {
-    qDebug() << "Данные от сервера были приняты";
     QByteArrayList listMsg;
     listMsg = msg.split('\n');
 
@@ -17,11 +15,10 @@ void Nmea::messageSlot(const QByteArray &msg)
     {
         if(checkMsg(for_msg))
             processMessage(for_msg);
-        else
-            qDebug() << "FAIL";
     }
 }
 
+//Проверка строки
 bool Nmea::checkMsg(const QByteArray &msg)
 {
     int length = msg.length();
@@ -58,12 +55,8 @@ bool Nmea::checksum(const QByteArray &msg)
     return true;
 }
 
+//Отправка строки МРК
 void Nmea::processMessage(const QByteArray &msg)
 {
-    qDebug() << "OK";
-}
-
-Nmea::~Nmea()
-{
-
+    emit receiveSignal(msg);
 }

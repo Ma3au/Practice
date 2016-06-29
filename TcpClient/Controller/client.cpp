@@ -9,8 +9,11 @@ Client::Client(QObject *parent) : QObject(parent)
     connect(m_pTcpSocket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(errorSlot()));
     connect(m_pTcpSocket, SIGNAL(disconnected()), SLOT(disconnectedSlot()));
     connect(m_pTcpSocket, SIGNAL(readyRead()), SLOT(readyReadSlot()));
+
+    connectToServer("localhost", 2323);
 }
 
+//Подключение к серверу
 bool Client::connectToServer(QString ip, int port)
 {
     if(connection)
@@ -22,16 +25,15 @@ bool Client::connectToServer(QString ip, int port)
     setIp(ip);
     setPort(port);
     m_pTcpSocket->connectToHost(ip, port);
-
     return true;
 }
 
+//Отключение от сервера
 bool Client::disconnectFromServer()
 {
     if(connection)
     {
         m_pTcpSocket->disconnectFromHost();
-        emit statusSignal("Вы не подключены к серверу");
         return true;
     }
 
@@ -39,23 +41,28 @@ bool Client::disconnectFromServer()
     return false;
 }
 
+//В случае подключения
 void Client::connectedSlot()
 {
     connection = true;
     emit statusSignal("Вы подключены к серверу:\n" + m_ip + ":" + QString::number(m_port));
 }
 
+//В случае ошибки
 void Client::errorSlot()
 {
+    connection = false;
     emit statusSignal("Вы не подключены к серверу");
 }
 
+//В случае отсоединения
 void Client::disconnectedSlot()
 {
     connection = false;
     emit statusSignal("Вы не подключены к серверу");
 }
 
+//Чтение сервера и отправка NMEA
 void Client::readyReadSlot()
 {
     if(m_pTcpSocket->bytesAvailable())
@@ -63,7 +70,6 @@ void Client::readyReadSlot()
 
     emit messageSignal(m_msg);
 }
-
 
 void Client::setIp(const QString &value)
 {

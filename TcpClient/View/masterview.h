@@ -2,25 +2,31 @@
 #define MASTERVIEW_H
 
 #include "Controller/controller.h"
-
 #include "clientgui.h"
 #include "mrkgui.h"
+#include <QWidget>
 
-#include <QObject>
+namespace Ui {
+class MasterView;
+}
 
-class MasterView : public QObject
+class MasterView : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MasterView(Controller *controller, QObject *parent = 0);
+    explicit MasterView(Controller *controller, QWidget *parent = 0);
     ~MasterView();
 
-public slots:
-    void clickSetingMrkSlot();
+private slots:
+    void on_clientButton_clicked();
+
+    void on_mrkButton_clicked();
+
+    void on_exitButton_clicked();
 
 private:
+    Ui::MasterView *ui;
     Controller *m_controller;
-
     ClientGUI *m_clientGUI;
     MrkGUI *m_mrkGUI;
 };

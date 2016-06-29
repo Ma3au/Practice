@@ -32,7 +32,7 @@ private slots:
     void readyReadSlot();
 
 signals:
-    void statusSignal(QString str);
+    void statusSignal(const QString &str);
     void messageSignal(const QByteArray &msg);
 };
 
